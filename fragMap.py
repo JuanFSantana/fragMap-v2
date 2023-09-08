@@ -56,10 +56,17 @@ def check_regions_bed(regions_bed_path) -> tuple:
 
 def fragMap_matrix(arg) -> str:
     """
-    :param args: tuple
-    :return: (str,str) identifier and path to the temporary bed file with matrix
+    Runs bedtools and fragMap-matrix.cpp
 
-    The function runs bedtools intersect and fragMapMatrix
+    Parameters
+    ----------
+    arg : tuple
+        (str, float, str, str, str, str, str, str, str)
+
+    Returns
+    -------
+    str
+        name of the matrix file
     """
     (
         reads_path,
@@ -111,10 +118,17 @@ def fragMap_matrix(arg) -> str:
 
 def modifiy_matrix(args2) -> tuple:
     """
-    :param args: tuple
-    :return: (str, numpy.ndarray)
+    Repeats or averages the matrix
 
-    Calculates the vertical and horizontal lines per base pair
+    Parameters
+    ----------
+    args2 : tuple
+        (str, str, int, float)
+
+    Returns
+    -------
+    tuple
+        (str, numpy 2d array)
     """
     name_and_path, height, width = args2
     table_name, path_to_matrix = name_and_path
@@ -144,10 +158,16 @@ def modifiy_matrix(args2) -> tuple:
 
 def image(tentnuple):
     """
-    :param tentnuple: tuple
-    :return: None
+    Creates image
 
-    Creates the image
+    Parameters
+    ----------
+    tentnuple : tuple
+        (str, numpy 2d array, int, int, int, str, int, float, float)
+
+    Returns
+    -------
+    None
     """
     (
         label,
