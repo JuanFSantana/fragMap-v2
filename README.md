@@ -6,7 +6,7 @@ This improved fragMap program is simplified, more powerful, and runs faster than
 fragMaps are created for a specific range of fragment sizes over a chosen genomic interval as described in [Santana et al., 2022](https://academic.oup.com/nar/article/50/16/9127/6659871), [Spector et al., 2022](https://www.nature.com/articles/s41467-022-29739-x), [Ball et al., 2022a](https://www.mdpi.com/1999-4915/14/4/779), and [Ball et al., 2022b](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9239164/). 
 
 # File requirements #
-The input regions file should be a six-column, tab-delimited bed file containing chromosome, start and end positions, and the strand information for each region. The regions can be of any length as long as it is an even number and the center is a feature under study (e.g. transcription start site). 
+The input regions file should be a six-column, tab-delimited bed file containing chromosome, start and end positions, a unique identifer and the strand information for each region. The regions can be of any length as long as it is an even number and the center is a feature under study (e.g. transcription start site). 
  
 | chr6 | 142946246 | 142946446 | Gene_A | 255 | - |
 |:----:|:---------:|:---------:|:------:|:---:|:-:|
