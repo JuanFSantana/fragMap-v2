@@ -148,12 +148,6 @@ void establishEvents(std::ifstream& reads_bed_file, std::map<int, std::map<int, 
                 newEnd = std::min(readBasePositionEnd, userEnd);
             }
 
-            // 4 types of reads to count:
-            // 1. both left and right position of read are outside of user defined start and end but read overlaps with user defined start and end
-            // 2. left position of read is less than start but right position of read is inside user defined start and end
-            // 3. left position of read is inside user defined start and end but right position of read is greater than end
-            // 4. both left and right position of read are inside user defined start and end
-            // addto intervals
             if (newStart != -99999 && newEnd != -99999){
                 if (intervals[readSize].find(newStart) == intervals[readSize].end()) {
                         intervals[readSize][newStart] = 1 * correctionFactor; // add 1 to the count and normalize by the correction factor
@@ -169,7 +163,7 @@ void establishEvents(std::ifstream& reads_bed_file, std::map<int, std::map<int, 
                 else{
                     newEndNotZero = newEnd+1;
                 }
-                if (intervals[readSize].find(newEnd) == intervals[readSize].end()) {
+                if (intervals[readSize].find(newEndNotZero) == intervals[readSize].end()) {
 
                     intervals[readSize][newEndNotZero] = -1 * correctionFactor;
                 } else {
