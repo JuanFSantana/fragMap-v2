@@ -14,8 +14,6 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from PIL import Image
 
 Image.MAX_IMAGE_PIXELS = 1000000000
-import numpy as np
-import pandas as pd
 
 
 def check_regions_bed(regions_bed_path) -> tuple:
