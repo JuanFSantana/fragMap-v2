@@ -2,6 +2,7 @@ import argparse
 import concurrent.futures
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -14,6 +15,8 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from PIL import Image
 
 Image.MAX_IMAGE_PIXELS = 1000000000
+import numpy as np
+import pandas as pd
 
 
 def check_regions_bed(regions_bed_path) -> tuple:
@@ -56,17 +59,10 @@ def check_regions_bed(regions_bed_path) -> tuple:
 
 def fragMap_matrix(arg) -> str:
     """
-    Runs bedtools and fragMap-matrix.cpp
+    :param args: tuple
+    :return: (str,str) identifier and path to the temporary bed file with matrix
 
-    Parameters
-    ----------
-    arg : tuple
-        (str, float, str, str, str, str, str, str, str)
-
-    Returns
-    -------
-    str
-        name of the matrix file
+    The function runs bedtools intersect and fragMapMatrix
     """
     (
         reads_path,
@@ -81,6 +77,11 @@ def fragMap_matrix(arg) -> str:
     ) = arg
     # create temporary path files
     temp_data_bedtools = Path(Path.cwd(), name + ".bed")
+
+    # check if bedtools is installed and accessible
+    if shutil.which("bedtools") is None:
+        print("Error: bedtools is not installed or not in the system's PATH.")
+        sys.exit(1)
 
     # run bedtools
     cmd = f"bedtools intersect -a {path_to_regions_bed} -b {reads_path} -wa -wb > {temp_data_bedtools}"
@@ -118,17 +119,10 @@ def fragMap_matrix(arg) -> str:
 
 def modifiy_matrix(args2) -> tuple:
     """
-    Repeats or averages the matrix
+    :param args: tuple
+    :return: (str, numpy.ndarray)
 
-    Parameters
-    ----------
-    args2 : tuple
-        (str, str, int, float)
-
-    Returns
-    -------
-    tuple
-        (str, numpy 2d array)
+    Calculates the vertical and horizontal lines per base pair
     """
     name_and_path, height, width = args2
     table_name, path_to_matrix = name_and_path
@@ -158,16 +152,10 @@ def modifiy_matrix(args2) -> tuple:
 
 def image(tentnuple):
     """
-    Creates image
+    :param tentnuple: tuple
+    :return: None
 
-    Parameters
-    ----------
-    tentnuple : tuple
-        (str, numpy 2d array, int, int, int, str, int, float, float)
-
-    Returns
-    -------
-    None
+    Creates the image
     """
     (
         label,
