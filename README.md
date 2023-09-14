@@ -61,7 +61,7 @@ regions: <str> Bed file of genomic regions of chosen length with the format desc
 
 -x: <float> or <int> (value less than or equal to 1) Vertical lines/bp for each genomic interval displayed, for example, -x 1 is one vertical line/bp; -x 0.1 is one vertical line/averaged 10 bp, default is 1
 
--c: If invoked, the output will be a fragMap of centers of fragments
+-c: If invoked, the output will be a fragMap of centers of fragments (Note: The calculated centers of reads are truncated to the nearest whole number. For example, a center value of 2.5 will be represented as 2)
 
 -g: <float> Gamma correction factor, default is 1 but 0.5 provides an image which is more interpretable by the human eye. For more information: https://en.wikipedia.org/wiki/Gamma_correction
 
