@@ -78,23 +78,23 @@ void establishEvents(std::ifstream& reads_bed_file, std::map<int, std::map<int, 
     // read each line of the reads bed file
     // declare variables to store bed file information from bedtools output
     std::string regionChr; // col1
-    int regionStart; // col2
-    int regionEnd; // col3
+    int regionStart = 0; // col2
+    int regionEnd = 0; // col3
     std::string regionGene; // col4
     std::string additionalInfo1; // col5
     std::string regionStrand; // col6      
     std::string readsChr; // col7
-    int readsStart; // col8
-    int readsEnd; // col9
+    int readsStart = 0; // col8
+    int readsEnd = 0; // col9
     std::string readsID; // col 10 
-    int readsQual; // col 11
+    int readsQual = 0; // col 11
     std::string readsStrand; // col12 
 
     while (reads_bed_file >> regionChr >> regionStart >> regionEnd >> regionGene >> additionalInfo1 >> regionStrand >> readsChr >> readsStart >> readsEnd >> readsID >> readsQual >> readsStrand) {
         int readSize = (readsEnd - readsStart) + 1;
         if (readSize >= userFragStart && readSize <= userFragEnd){
-            int readBasePositionStart;
-            int readBasePositionEnd;
+            int readBasePositionStart = 0;
+            int readBasePositionEnd = 0;
             int positionTSS = (regionStart + regionEnd) / 2;
             int newStart = -99999;
             int newEnd = -99999;
@@ -156,7 +156,7 @@ void establishEvents(std::ifstream& reads_bed_file, std::map<int, std::map<int, 
                     intervals[readSize][newStart] += 1 * correctionFactor; 
                 }
 
-                int newEndNotZero; // for cases where newStart is -1, newEnd is 0, we want to add 1 to newEnd
+                int newEndNotZero = 0; // for cases where newStart is -1, newEnd is 0, we want to add 1 to newEnd
                 if ((newEnd+1) == 0){
                     newEndNotZero = 1;
                 }
@@ -179,7 +179,7 @@ void computeCounts(std::map<int, std::map<int, double>>& intervals, std::map<int
 
     for (const auto& [readLength, intervalPairs]: intervals){
         // initialize current count
-        double currentCount = 0;
+        double currentCount = 0.0;
         // iterate through each pair in the vector
         for (const auto& [position, change]: intervalPairs){
             // update the current count
