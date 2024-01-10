@@ -421,7 +421,7 @@ def parse_args():
             "Missing -y argument. y must be int or float greater than or equal to 1"
         )
 
-    if len(read_file) != len(spikeins) and len(read_file) != len(identifier):
+    if len(read_file) != len(spikeins) or len(read_file) != len(identifier):
         sys.exit(
             "The number of bed files, spike-ins or image output names do not match"
         )
